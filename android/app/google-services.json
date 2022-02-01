@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "658006208698",
+    "firebase_url": "https://voomoo-ef0dd-default-rtdb.firebaseio.com",
+    "project_id": "voomoo-ef0dd",
+    "storage_bucket": "voomoo-ef0dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658006208698:android:a3f85d57fce7f8baa11283",
+        "android_client_info": {
+          "package_name": "vm_rider.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658006208698-fc3hdd923ogt61pisb7q9ednk80kp56c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vm_rider.com",
+            "certificate_hash": "9223470a503fc0587389cf0f91a6bef47f4e0c73"
+          }
+        },
+        {
+          "client_id": "658006208698-n9ncccihdg638rvi7n8sshnkel4nsk0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBARX8HaKWn6Eixedxc2XNL8H8fJGOesI0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658006208698-n9ncccihdg638rvi7n8sshnkel4nsk0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
