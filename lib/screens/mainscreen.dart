@@ -12,7 +12,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controllerGoogleMap = Completer();
+  late GoogleMapController newGoogleMapController;
 
   static const CameraPosition _kDhaka = CameraPosition(
     target: LatLng(23.778585565308543, 90.3684221106581),
@@ -31,9 +32,31 @@ class _MainScreenState extends State<MainScreen> {
             mapType: MapType.normal,
             initialCameraPosition: _kDhaka,
             onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
+              _controllerGoogleMap.complete(controller);
+              newGoogleMapController = controller;
             },
           ),
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                height: 25.0,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(18),
+                      topRight: Radius.circular(18)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.cyan,
+                      blurRadius: 16.0,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.7, 0.7),
+                    ),
+                  ],
+                ),
+              ))
         ],
       ),
     );
