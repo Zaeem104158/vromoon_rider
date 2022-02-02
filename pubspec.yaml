@@ -41,6 +41,8 @@ dependencies:
   google_maps: ^6.0.0
   firebase_app_check: ^0.0.6+4
   google_maps_flutter: ^2.1.1
+  bottom_drawer: ^0.0.5
+  geolocator: ^8.0.5
 
 dev_dependencies:
   flutter_test:
