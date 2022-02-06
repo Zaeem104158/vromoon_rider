@@ -21,22 +21,23 @@ class _MainScreenState extends State<MainScreen> {
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  late Position currentPosition;
   var geoLocator = Geolocator();
+  late Position currentPosition;
   double bottomPaddingOfMap = 0;
-  void locatePosition() async {
+  void setupPositionLocator() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentPosition = position;
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
-    CameraPosition cameraPosition =
-        CameraPosition(target: latLngPosition, zoom: 15);
+    CameraPosition cameraPosition = CameraPosition(
+      target: latLngPosition,
+      zoom: 15,
+    );
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-    //await HelperMethods.findCordinateAddress(position, context);
   }
 
-  static const CameraPosition _kDhaka = CameraPosition(
+  static final CameraPosition _kDhaka = CameraPosition(
     target: LatLng(22.900750049006117, 89.50285650754132),
     zoom: 14.4746,
   );
@@ -45,16 +46,16 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      // appBar: AppBar(
-      //   title: const Text('Vromoon'),
-      // ),
+      appBar: AppBar(
+        title: const Text('Vromoon'),
+      ),
       drawer: Container(
         color: Colors.white,
         width: 255,
         child: Drawer(
           child: ListView(
             children: [
-              Container(
+              SizedBox(
                 height: 155.0,
                 child: DrawerHeader(
                   decoration: BoxDecoration(color: Colors.white),
@@ -138,13 +139,15 @@ class _MainScreenState extends State<MainScreen> {
             myLocationEnabled: true,
             zoomGesturesEnabled: true,
             zoomControlsEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
+            onMapCreated: (GoogleMapController controller) async {
               _controllerGoogleMap.complete(controller);
               newGoogleMapController = controller;
               setState(() {
                 bottomPaddingOfMap = 300.0;
               });
-              locatePosition();
+              LocationPermission permission;
+              permission = await Geolocator.requestPermission();
+              setupPositionLocator();
             },
           ),
           Positioned(
