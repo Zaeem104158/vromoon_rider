@@ -2,9 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vm_rider/dataHandler/appData.dart';
 import 'package:vm_rider/screens/loginscreen.dart';
 import 'package:vm_rider/screens/mainscreen.dart';
 import 'package:vm_rider/screens/signupscreen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,19 +23,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vromood Rider',
-      theme: ThemeData(
-        fontFamily: "Brand Bold",
-        primarySwatch: Colors.cyan,
+    return ChangeNotifierProvider(
+      create: (context) => AppData(),
+      child: MaterialApp(
+        title: 'Vromood Rider',
+        theme: ThemeData(
+          fontFamily: "Brand Bold",
+          primarySwatch: Colors.cyan,
+        ),
+        initialRoute: LoginScreen.idScreen,
+        routes: {
+          SignupScreen.idScreen: (context) => SignupScreen(),
+          LoginScreen.idScreen: (context) => LoginScreen(),
+          MainScreen.idScreen: (context) => const MainScreen(),
+        },
+        debugShowCheckedModeBanner: false,
       ),
-      initialRoute: LoginScreen.idScreen,
-      routes: {
-        SignupScreen.idScreen: (context) => SignupScreen(),
-        LoginScreen.idScreen: (context) => LoginScreen(),
-        MainScreen.idScreen: (context) => const MainScreen(),
-      },
-      debugShowCheckedModeBanner: false,
     );
   }
 }

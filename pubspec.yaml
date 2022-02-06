@@ -44,6 +44,7 @@ dependencies:
   bottom_drawer: ^0.0.5
   geolocator: ^8.0.5
   http: ^0.13.4
+  provider: ^6.0.2
   
 
 dev_dependencies:
