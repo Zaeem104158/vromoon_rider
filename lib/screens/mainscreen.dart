@@ -5,7 +5,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'package:vm_rider/dataHandler/appData.dart';
 import 'package:vm_rider/helper/helpermethods.dart';
+import 'package:js/js.dart';
+import 'package:vm_rider/screens/searchdropoff.dart';
 
 class MainScreen extends StatefulWidget {
   static const String idScreen = "MainScreen";
@@ -36,7 +40,8 @@ class _MainScreenState extends State<MainScreen> {
     );
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-    String address = await HelperMethods.searchcoordinateAddress(position);
+    String address =
+        await HelperMethods.searchcoordinateAddress(position, context);
     print("This is your address: " + address);
   }
 
@@ -215,32 +220,40 @@ class _MainScreenState extends State<MainScreen> {
                       SizedBox(
                         height: 20.0,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black54,
-                              blurRadius: 16.0,
-                              spreadRadius: 0.5,
-                              offset: Offset(0.7, 0.7),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.search_outlined,
-                                color: Colors.blueAccent,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchDropOffScreen()));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 16.0,
+                                spreadRadius: 0.5,
+                                offset: Offset(0.7, 0.7),
                               ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Text("Search Drop Off"),
                             ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.search_outlined,
+                                  color: Colors.blueAccent,
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Text("Search Drop Off"),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -275,7 +288,13 @@ class _MainScreenState extends State<MainScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Pick Up Location"),
+                                Text(Provider.of<AppData>(context)
+                                            .pickUpLocation !=
+                                        null
+                                    ? Provider.of<AppData>(context)
+                                        .pickUpLocation!
+                                        .placeName!
+                                    : "Pick Up Location"),
                                 SizedBox(
                                   height: 6.0,
                                 ),
@@ -307,20 +326,19 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.pin_drop_outlined,
-                                color: Colors.blueAccent),
+                            Icon(Icons.work_outline, color: Colors.blueAccent),
                             SizedBox(
                               width: 12.0,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Destination Location"),
+                                Text("Add Office"),
                                 SizedBox(
                                   height: 6.0,
                                 ),
                                 Text(
-                                  "Your drop off location",
+                                  "Add your office location",
                                   style: TextStyle(
                                     fontSize: 12.0,
                                     color: Colors.black54,
